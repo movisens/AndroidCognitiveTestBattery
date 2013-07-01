@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cognition-Tests</string>
+    <string name="dualnback_visual_button">Position</string>
+    <string name="dualnback_auditory_button">Letter</string>
+    <string name="dualnback_both_button">Both</string>
+    <string name="dualnback_status_stopped">Stopped</string>
+    <string name="pvt_instructions">When each stimulus appears, press anywhere on the screen as fast as you can. Your response time will then be shown in 100ths of a second.\nTouch the screen to start.</string>
+    <string name="pvt_early">Too early</string>
+    <string name="pvt_late">Too late</string>
+    <string name="pvt_end">Thank you for participating.\nYou are now finished.</string>
+    <string name="pvt_countdown">Get ready to start\n\n\n</string>
+</resources>

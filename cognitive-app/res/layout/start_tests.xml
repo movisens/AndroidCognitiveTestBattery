@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_margin="20dp"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/pvt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_pvt" />
+
+    <Button
+        android:id="@+id/dualnback"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/test_dualnback" />
+
+</LinearLayout>

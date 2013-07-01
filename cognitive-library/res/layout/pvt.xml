@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000" >
+
+    <TextView
+        android:id="@+id/ready_message"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:layout_margin="20dip"
+        android:textSize="9pt" />
+
+    <RelativeLayout
+        android:id="@+id/stimulus"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dip"
+        android:background="#FF0000" >
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="125dip"
+        android:textColor="#FFFF00"
+        android:textSize="12pt"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/test_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dip"
+        android:textColor="#FFFFFF"
+        android:textSize="10pt"
+        android:visibility="gone" />
+
+</RelativeLayout>
