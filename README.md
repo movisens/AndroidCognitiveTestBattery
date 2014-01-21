@@ -23,8 +23,6 @@ There are three use cases:
 
         com.movisens.xs.android.cognition.pvt.PVT
 
- As soon as the cognitive test is completed, you get back the results of the test in the intent extra named "value". The  format of the result depends on the cognitive test. One value is formatted as "key=value". Multiple values are separated by the vertical bar character "|". Multiple result groups are separated by the number sign character "#" (e.g. PVT returns "length=123|score=234#length=345|score=456").
-
  * Use the default or customized cognitive tests in [movisensXS](http://xs.movisens.com)
 
 ### Attribution ###

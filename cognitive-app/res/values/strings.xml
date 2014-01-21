@@ -4,5 +4,6 @@
     <string name="app_name">Cognitive Test Battery</string>
     <string name="test_pvt">Psychomotor vigilance task (PVT)</string>
     <string name="test_dualnback">Dual n-back</string>
+    <string name="test_stroop">Emotional Stroop</string>
 
 </resources>

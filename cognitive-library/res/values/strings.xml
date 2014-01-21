@@ -11,4 +11,5 @@
     <string name="pvt_late">Too late</string>
     <string name="pvt_end">Thank you for participating.\nYou are now finished.</string>
     <string name="pvt_countdown">Get ready to start\n\n\n</string>
+    <string name="emo_stroop_intro">In this task, you will be presented with a series of simple words (war, clock, windy, kill). Your job is to indicate, as quickly as possible, the color you are thinking of reading the word.</string>
 </resources>
