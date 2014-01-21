@@ -8,6 +8,7 @@ Currently these tests are not yet validated!
 
  * Psychomotor Vigilance Task (PVT)
  * DualNBack
+ * Emotional Stroop Test (only prototype yet)
  * More to come. Please commit pull request to add more characteristics.
 
 ### Usage ###
@@ -19,8 +20,8 @@ There are three use cases:
 
         com.movisens.xs.android.cognition.PVT
  
- or include the library and start the Activity:
-
+    or include the library and start the Activity:
+ 
         com.movisens.xs.android.cognition.pvt.PVT
 
  * Use the default or customized cognitive tests in [movisensXS](http://xs.movisens.com)
