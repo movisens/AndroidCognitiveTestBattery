@@ -11,11 +11,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import com.movisens.xs.android.cognitive.library.R;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +24,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.movisens.xs.android.cognition.CognitiveActivity;
+import com.movisens.xs.android.cognitive.library.R;
 
 /**
  * This class implements the "Emotional Stroop Test". See:
@@ -34,11 +36,14 @@ import android.widget.TextView;
  * @author Stephan Grund
  * 
  */
-public class EmoStroop extends Activity {
+public class EmoStroop extends CognitiveActivity {
 	private final int buttonsPerLine = 6;
 	private final Handler mHandler = new Handler(Looper.getMainLooper());
 	private TestRun actualRun = null;
 	private PowerManager.WakeLock wakelock = null;
+
+	Set<String> emotionalWords = new HashSet<String>();
+	Set<String> neutralWords = new HashSet<String>();
 
 	/**
 	 * Font size of the shown key words.
@@ -68,7 +73,7 @@ public class EmoStroop extends Activity {
 
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakelock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "STROOP");
-		
+
 		setContentView(R.layout.emo_stroop_intro);
 		((Button) findViewById(R.id.stroop_finishTest))
 				.setOnClickListener(new OnClickListener() {
@@ -80,9 +85,9 @@ public class EmoStroop extends Activity {
 
 				});
 
-		TextView link = ((TextView)findViewById(R.id.stroop_linkTextView));
+		TextView link = ((TextView) findViewById(R.id.stroop_linkTextView));
 		link.setClickable(true);
-		link.setOnClickListener(new OnClickListener(){
+		link.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -91,33 +96,51 @@ public class EmoStroop extends Activity {
 				i.setData(Uri.parse(url));
 				startActivity(i);
 			}
-			
+
 		});
-		
+
+		fillParameters(getIntent(), this);
+
 		actualRun = new TestRun();
 		transitionTo = State.INSTRUCTIONS;
 		mHandler.post(actualRun);
 	}
-	
+
+	private void fillParameters(Intent intent, Context context) {
+		try {
+			String[] emoWords = null;
+			fillStringArray(emoWords, "emotionalWords");
+			emotionalWords = new HashSet<String>(Arrays.asList(emoWords));
+
+			String[] neutraWords = null;
+			fillStringArray(neutraWords, "neutralWords");
+			neutralWords = new HashSet<String>(Arrays.asList(neutraWords));
+		} catch (Exception e) {
+			Toast toast = Toast.makeText(context,
+					"Invalid Paramters: " + e.getMessage(), Toast.LENGTH_LONG);
+			toast.show();
+		}
+	}
+
 	@Override
-	public void onResume()
-	{
+	public void onResume() {
 		super.onResume();
 		wakelock.acquire();
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
 		wakelock.release();
 	}
-	
+
 	private void setMainLayout() {
 		setContentView(R.layout.emo_stroop);
 
-		String[] color_names = getIntent().getStringArrayExtra("color_names");
-		int[] colors = getIntent().getIntArrayExtra("colors");
+		String[] color_names = new String[] { "Black", "Blue", "Yellow",
+				"Green", "Red" };
+		int[] colors = new int[] { Color.BLACK, Color.BLUE, Color.YELLOW,
+				Color.GREEN, Color.RED };
 
 		for (int i = 0; i < color_names.length; i++)
 			addColorButton(color_names[i], colors[i]);
@@ -155,14 +178,6 @@ public class EmoStroop extends Activity {
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(actualRun.trials);
 
-			Intent intent = new Intent(this, DetailsPage.class);
-			intent.putExtra("results", baos.toByteArray());
-			intent.putExtra("emotional", new ArrayList<String>(
-					actualRun.emotionalWords));
-			intent.putExtra("neutral", new ArrayList<String>(
-					actualRun.neutralWords));
-
-			startActivity(intent);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -221,8 +236,6 @@ public class EmoStroop extends Activity {
 	// Implements the test process.
 	// Has to be posted to the main-Thread because of GUI-manipulations.
 	private class TestRun implements Runnable {
-		Set<String> emotionalWords = new HashSet<String>();
-		Set<String> neutralWords = new HashSet<String>();
 		Iterator<String> testWords = null;
 
 		List<Result> trials = new ArrayList<Result>();
@@ -286,11 +299,6 @@ public class EmoStroop extends Activity {
 
 			switch (state) {
 			case INSTRUCTIONS:
-				emotionalWords = new HashSet<String>(Arrays.asList(getIntent()
-						.getStringArrayExtra("emotional_words")));
-				neutralWords = new HashSet<String>(Arrays.asList(getIntent()
-						.getStringArrayExtra("neutral_words")));
-				wordFontSize = getIntent().getFloatExtra("font_size", 50);
 				List<String> testWordsTemp = new ArrayList<String>();
 				testWordsTemp.addAll(emotionalWords);
 				testWordsTemp.addAll(neutralWords);

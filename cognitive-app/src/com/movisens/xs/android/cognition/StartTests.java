@@ -1,12 +1,11 @@
 package com.movisens.xs.android.cognition;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.movisens.xs.android.cognition.dualnback.DualNBack;
 import com.movisens.xs.android.cognition.emo_stroop.EmoStroop;
@@ -20,6 +19,7 @@ public class StartTests extends Activity {
 	private final String XS_config = "XS_config";
 	private final String PVT_TestParameters_config = "{'minDelay':1000,'maxDelay':4000}";
 	private final String DUALNBACK_TestParameters_config = "{}";
+	private final String EMO_STROOP_TestParameters_config = "{'emotionalWords':['war','cancer','kill','crash','flames','Hiroshima'], 'neutralWords':['windy', 'lift', 'clock', 'table', 'cup','Usbekistan']}";
 
 	public static final int PVT_REQUEST = 1;
 	public static final int DUALNBACK_REQUEST = 2;
@@ -31,12 +31,10 @@ public class StartTests extends Activity {
 
 		setContentView(R.layout.start_tests);
 
-		final Context context = this;
-
 		findViewById(R.id.pvt).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(context, PVT.class);
+				Intent intent = new Intent(StartTests.this, PVT.class);
 				intent.putExtra(XS_config, PVT_TestParameters_config);
 				startActivityForResult(intent, PVT_REQUEST);
 			}
@@ -46,23 +44,22 @@ public class StartTests extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						Intent intent = new Intent(context, DualNBack.class);
+						Intent intent = new Intent(StartTests.this,
+								DualNBack.class);
 						intent.putExtra(XS_config,
 								DUALNBACK_TestParameters_config);
 						startActivityForResult(intent, DUALNBACK_REQUEST);
 					}
 				});
-		
+
 		findViewById(R.id.stroop).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						Intent intent = new Intent(StartTests.this, EmoStroop.class);
-						intent.putExtra("font_size", 50);
-						intent.putExtra("color_names", new String[]{"Black", "Blue", "Yellow", "Green", "Red"});
-						intent.putExtra("colors", new int[]{Color.BLACK, Color.BLUE, Color.YELLOW, Color.GREEN, Color.RED});
-						intent.putExtra("emotional_words", new String[]{"war", "cancer", "kill", "crash", "flames", "Hiroshima"});
-						intent.putExtra("neutral_words", new String[]{"windy", "lift", "clock", "table", "cup", "Usbekistan"});
+						Intent intent = new Intent(StartTests.this,
+								EmoStroop.class);
+						intent.putExtra(XS_config,
+								EMO_STROOP_TestParameters_config);
 						startActivityForResult(intent, EMO_STROOP_REQUEST);
 					}
 				});
@@ -93,6 +90,9 @@ public class StartTests extends Activity {
 		default:
 			Log.d(TAG, "Result from unknown request");
 		}
+
+		Toast.makeText(getApplicationContext(), "Result: " + result,
+				Toast.LENGTH_LONG).show();
 
 		Log.d(TAG, "PVT Result: " + result);
 	}

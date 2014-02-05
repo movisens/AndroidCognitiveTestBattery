@@ -7,9 +7,9 @@ The Android cognitive test battery is a suite of cognitive tests for android. Th
 Currently these tests are not yet validated!
 
  * Psychomotor Vigilance Task (PVT)
- * DualNBack
+ * DualNBack (only prototype yet)
  * Emotional Stroop Test (only prototype yet)
- * More to come. Please commit pull request to add more characteristics.
+ * More to come. Please commit pull request to add more tests.
 
 ### Usage ###
 
@@ -28,7 +28,7 @@ There are three use cases:
 
 ### Attribution ###
 
-If you use one of the test in your studie, please cite the appropriate articles:
+If you use one of the test in your study, please cite the appropriate articles:
 
 #### PVT ####
 

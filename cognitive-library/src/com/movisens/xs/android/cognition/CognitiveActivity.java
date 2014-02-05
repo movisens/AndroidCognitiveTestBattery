@@ -1,5 +1,6 @@
 package com.movisens.xs.android.cognition;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,5 +36,19 @@ public class CognitiveActivity extends Activity {
 		JSONObject config = new JSONObject(extra);
 		if (config.has(name))
 			parameter = config.getInt(name);
+	}
+
+	public void fillStringArray(String[] parameter, String name)
+			throws JSONException {
+		String extra = getIntent().getStringExtra(CONFIG);
+		if (extra == null)
+			return;
+		JSONObject config = new JSONObject(extra);
+		if (config.has(name)) {
+			JSONArray a = config.getJSONArray(name);
+			for (int i = 0; i < a.length(); i++) {
+				parameter[i] = a.getString(i);
+			}
+		}
 	}
 }

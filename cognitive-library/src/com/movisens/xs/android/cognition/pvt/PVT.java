@@ -1,6 +1,5 @@
 package com.movisens.xs.android.cognition.pvt;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -18,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import com.movisens.xs.android.cognition.CognitiveActivity;
 import com.movisens.xs.android.cognitive.library.R;
 
@@ -115,16 +117,9 @@ public class PVT extends CognitiveActivity {
 		try {
 			fillInt(minDelay, "minDelay");
 			fillInt(maxDelay, "maxDelay");
-			// JSONObject config = new JSONObject(
-			// intent.getStringExtra("XS_config"));
-			// if (config.has("minDelay"))
-			// minDelay = config.getInt("minDelay");
-			// if (config.has("maxDelay"))
-			// maxDelay = config.getInt("maxDelay");
 		} catch (Exception e) {
-			Toast toast = Toast.makeText(context,
-					"Invalid Paramters: " + e.getMessage(), Toast.LENGTH_LONG);
-			toast.show();
+			Toast.makeText(context, "Invalid Paramters: " + e.getMessage(),
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -290,15 +285,10 @@ public class PVT extends CognitiveActivity {
 					handler.postDelayed(mPVTRun, gameOverDelay);
 					break;
 				case CLEANUP_AND_FINISH:
+					Gson gson = new GsonBuilder()
+							.excludeFieldsWithoutExposeAnnotation().create();
 					Intent intent = new Intent();
-					StringBuilder sb = new StringBuilder();
-					for (int i = 0; i < trials.size(); i++) {
-						if (i != 0) {
-							sb.append("#");
-						}
-						sb.append(trials.get(i));
-					}
-					intent.putExtra("value", sb.toString());
+					intent.putExtra("value", gson.toJson(trials));
 					setResult(RESULT_OK, intent);
 					finish();
 					break;
@@ -325,27 +315,11 @@ public class PVT extends CognitiveActivity {
 		}
 	}
 
-	public class PVTResult implements Serializable {
-
-		private static final long serialVersionUID = -2855669719027860857L;
-		public String id;
-		public int trialNum;
-		public int batch;
-		public int configVer;
+	public class PVTResult {
 		public long timeStamp;
+		@Expose
 		public int length;
+		@Expose
 		public int score;
-		public boolean reported;
-
-		public String toString() {
-			return toCSVLine();
-		}
-
-		/**
-		 * @return this trial's data as a CSV line
-		 */
-		public String toCSVLine() {
-			return "length=" + length + "|score=" + score;
-		}
 	}
 }
