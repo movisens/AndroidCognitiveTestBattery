@@ -117,7 +117,7 @@ public class EmoStroop extends CognitiveActivity {
 			neutralWords = new HashSet<String>(Arrays.asList(neutraWords));
 		} catch (Exception e) {
 			Toast toast = Toast.makeText(context,
-					"Invalid Paramters: " + e.getMessage(), Toast.LENGTH_LONG);
+					"Invalid Parameters: " + e.getMessage(), Toast.LENGTH_LONG);
 			toast.show();
 		}
 	}
