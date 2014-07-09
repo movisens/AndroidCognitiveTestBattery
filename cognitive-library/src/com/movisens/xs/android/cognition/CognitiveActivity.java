@@ -38,17 +38,23 @@ public class CognitiveActivity extends Activity {
 			parameter = config.getInt(name);
 	}
 
-	public void fillStringArray(String[] parameter, String name)
+	/**
+	 * @return new array on success or null if name not known.
+	 */
+	public String[] fillStringArray(String name)
 			throws JSONException {
 		String extra = getIntent().getStringExtra(CONFIG);
 		if (extra == null)
-			return;
+			return null;
 		JSONObject config = new JSONObject(extra);
 		if (config.has(name)) {
 			JSONArray a = config.getJSONArray(name);
+			String[] parameter = new String[a.length()];
 			for (int i = 0; i < a.length(); i++) {
 				parameter[i] = a.getString(i);
 			}
+			return parameter;
 		}
+		return null;
 	}
 }
