@@ -109,15 +109,15 @@ public class EmoStroop extends CognitiveActivity {
 	private void fillParameters(Intent intent, Context context) {
 		try {
 			String[] emoWords = null;
-			fillStringArray(emoWords, "emotionalWords");
+			emoWords = fillStringArray("emotionalWords");
 			emotionalWords = new HashSet<String>(Arrays.asList(emoWords));
 
 			String[] neutraWords = null;
-			fillStringArray(neutraWords, "neutralWords");
+			neutraWords = fillStringArray("neutralWords");
 			neutralWords = new HashSet<String>(Arrays.asList(neutraWords));
 		} catch (Exception e) {
 			Toast toast = Toast.makeText(context,
-					"Invalid Paramters: " + e.getMessage(), Toast.LENGTH_LONG);
+					"Invalid Parameters: " + e.getMessage(), Toast.LENGTH_LONG);
 			toast.show();
 		}
 	}
