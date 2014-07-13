@@ -16,26 +16,36 @@ public class CognitiveActivity extends Activity {
 	/*
 	 * ???
 	 */
-	public void fillBoolean(Boolean parameter, String name)
+	/**
+	 * @param parameter default value for parameter if name not known.
+	 * @return parameter value which may be default if name not known.
+	 */
+	public boolean fillBoolean(boolean parameter, String name)
 			throws JSONException {
 		String extra = getIntent().getStringExtra(CONFIG);
 		if (extra == null)
-			return;
+			return parameter;
 		JSONObject config = new JSONObject(extra);
 		if (config.has(name))
 			parameter = config.getBoolean(name);
+		return parameter;
 	}
 
 	/*
 	 * ???
 	 */
-	public void fillInt(Integer parameter, String name) throws JSONException {
+	/**
+	 * @param parameter default value for parameter if name not known.
+	 * @return parameter value which may be default if name not known.
+	 */
+	public int fillInt(int parameter, String name) throws JSONException {
 		String extra = getIntent().getStringExtra(CONFIG);
 		if (extra == null)
-			return;
+			return parameter;
 		JSONObject config = new JSONObject(extra);
 		if (config.has(name))
 			parameter = config.getInt(name);
+		return parameter;
 	}
 
 	/**

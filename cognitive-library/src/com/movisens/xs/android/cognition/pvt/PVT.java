@@ -115,8 +115,8 @@ public class PVT extends CognitiveActivity {
 
 	private void fillParameters(Intent intent, Context context) {
 		try {
-			fillInt(minDelay, "minDelay");
-			fillInt(maxDelay, "maxDelay");
+			minDelay = fillInt(minDelay, "minDelay");
+			maxDelay = fillInt(maxDelay, "maxDelay");
 		} catch (Exception e) {
 			Toast.makeText(context, "Invalid Parameters: " + e.getMessage(),
 					Toast.LENGTH_LONG).show();
