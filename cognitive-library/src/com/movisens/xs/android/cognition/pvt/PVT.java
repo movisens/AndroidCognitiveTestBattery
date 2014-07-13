@@ -110,7 +110,7 @@ public class PVT extends CognitiveActivity {
 		}
 		Collections.shuffle(ibiDelays);
 
-		new Thread(mPVTRun).start();
+		handler.post(mPVTRun);
 	}
 
 	private void fillParameters(Intent intent, Context context) {
