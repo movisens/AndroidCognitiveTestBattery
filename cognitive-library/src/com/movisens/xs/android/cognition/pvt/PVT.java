@@ -34,9 +34,8 @@ public class PVT extends CognitiveActivity {
 	public static int ibis = 5; // number of interstimulus intervals (ISI)
 	public static int testDuration = 1000 * 30; // length of test from start to
 												// finish (ms)
-	public static int minDelay = 1000; // minimum wait time before dot appears
-										// (ms)
-	public static int maxDelay = 4000; // max wait time before dot appears (ms)
+	public int minDelay = 1000; // minimum wait time before dot appears (ms)
+	public int maxDelay = 4000; // max wait time before dot appears (ms)
 	public static int countdownDelay = 1000; // delay between numbers in the
 												// countdown (ms)
 	public static int restartDelay = 1000; // delay after a trial is complete
@@ -110,15 +109,15 @@ public class PVT extends CognitiveActivity {
 		}
 		Collections.shuffle(ibiDelays);
 
-		new Thread(mPVTRun).start();
+		handler.post(mPVTRun);
 	}
 
 	private void fillParameters(Intent intent, Context context) {
 		try {
-			fillInt(minDelay, "minDelay");
-			fillInt(maxDelay, "maxDelay");
+			minDelay = fillInt(minDelay, "minDelay");
+			maxDelay = fillInt(maxDelay, "maxDelay");
 		} catch (Exception e) {
-			Toast.makeText(context, "Invalid Paramters: " + e.getMessage(),
+			Toast.makeText(context, "Invalid Parameters: " + e.getMessage(),
 					Toast.LENGTH_LONG).show();
 		}
 	}
